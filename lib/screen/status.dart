@@ -66,10 +66,7 @@ class _StatusScreenState extends State<StatusScreen> {
                                 shadowColor:
                                     const WidgetStatePropertyAll(Colors.black),
                                 elevation: const WidgetStatePropertyAll(5)),
-                            onPressed: () {
-                              provider.sendStatus(
-                                  'Gagal'); // Mengirimkan status 'Gagal'
-                            },
+                            onPressed: () {},
                             child: Text(
                               "Gagal",
                               style: TextStyle(
@@ -79,31 +76,27 @@ class _StatusScreenState extends State<StatusScreen> {
                               ),
                             )),
                         ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  WidgetStatePropertyAll(mycolor.color1),
-                              shape: WidgetStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    WidgetStatePropertyAll(mycolor.color1),
+                                shape: WidgetStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
                                 ),
+                                shadowColor:
+                                    const WidgetStatePropertyAll(Colors.black),
+                                elevation: const WidgetStatePropertyAll(5)),
+                            onPressed: () {},
+                            child: Text(
+                              "Selesai",
+                              style: TextStyle(
+                                color: mycolor.color2,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
                               ),
-                              shadowColor:
-                                  const WidgetStatePropertyAll(Colors.black),
-                              elevation: const WidgetStatePropertyAll(5)),
-                          onPressed: () {
-                            provider.sendStatus(
-                                'Selesai'); // Mengirimkan status 'Selesai'
-                          },
-                          child: Text(
-                            "Selesai",
-                            style: TextStyle(
-                              color: mycolor.color2,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                            )),
                       ],
                     ),
                     const SizedBox(

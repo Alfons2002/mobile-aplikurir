@@ -69,27 +69,6 @@ class OSMScreenProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> sendStatus(String status) async {
-    try {
-      final data = {
-        'id_kurir': idKurir,
-        'nomor_resi': dataPengantaran[0]['nomor_resi'],
-        'Alamat_Tujuan': dataPengantaran[0]['Alamat_Tujuan'],
-        'Nama_Pengiriman': dataPengantaran[0]['Nama_Pengirim'],
-        'nama_kurir': dataPengantaran[0]['nama_kurir'],
-        'handphone_kurir': dataPengantaran[0]['handphone_kurir'],
-        'email_kurir': dataPengantaran[0]['email'],
-        'status_pengiriman': status,
-      };
-
-      await ApiService().sendDeliveryStatus(data);
-      _fetchDataPengantaran();
-      _tampilkanSnackBar('Status berhasil diperbarui menjadi $status');
-    } catch (e) {
-      _tampilkanSnackBar('Gagal memperbarui status: $e');
-    }
-  }
-
   Future<void> _fetchCoordinatesAndBuildRoute() async {
     List<LatLng> fetchedCoordinates =
         await _ambilDataKurir.fetchCoordinates(idKurir);
