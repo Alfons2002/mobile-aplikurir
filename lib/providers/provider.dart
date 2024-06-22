@@ -73,24 +73,17 @@ class OSMScreenProvider extends ChangeNotifier {
     try {
       final data = {
         'id_kurir': idKurir,
-        'nomor_resi': dataPengantaran[0][
-            'nomor_resi'], // Mengambil nomor resi dari data pengantaran pertama
-        'Alamat_Tujuan': dataPengantaran[0][
-            'Alamat_Tujuan'], // Mengambil alamat tujuan dari data pengantaran pertama
-        'Nama_Pengiriman': dataPengantaran[0][
-            'Nama_Pengirim'], // Mengambil nama pengirim dari data pengantaran pertama
-        'nama_kurir': dataPengantaran[0][
-            'nama_kurir'], // Mengambil nama kurir dari data pengantaran pertama
-        'handphone_kurir': dataPengantaran[0][
-            'handphone_kurir'], // Mengambil handphone kurir dari data pengantaran pertama
-        'email_kurir': dataPengantaran[0]
-            ['email'], // Mengambil email kurir dari data pengantaran pertama
-        'status_pengiriman':
-            status, // Mengirimkan status 'Gagal' atau 'Selesai'
+        'nomor_resi': dataPengantaran[0]['nomor_resi'],
+        'Alamat_Tujuan': dataPengantaran[0]['Alamat_Tujuan'],
+        'Nama_Pengiriman': dataPengantaran[0]['Nama_Pengirim'],
+        'nama_kurir': dataPengantaran[0]['nama_kurir'],
+        'handphone_kurir': dataPengantaran[0]['handphone_kurir'],
+        'email_kurir': dataPengantaran[0]['email'],
+        'status_pengiriman': status,
       };
 
       await ApiService().sendDeliveryStatus(data);
-      _fetchDataPengantaran(); // Memuat ulang data setelah pengiriman status berhasil
+      _fetchDataPengantaran();
       _tampilkanSnackBar('Status berhasil diperbarui menjadi $status');
     } catch (e) {
       _tampilkanSnackBar('Gagal memperbarui status: $e');
