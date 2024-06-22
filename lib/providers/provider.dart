@@ -69,6 +69,34 @@ class OSMScreenProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> sendStatus(String status) async {
+    try {
+      final data = {
+        'id_kurir': idKurir,
+        'nomor_resi': dataPengantaran[0][
+            'nomor_resi'], // Mengambil nomor resi dari data pengantaran pertama
+        'Alamat_Tujuan': dataPengantaran[0][
+            'Alamat_Tujuan'], // Mengambil alamat tujuan dari data pengantaran pertama
+        'Nama_Pengiriman': dataPengantaran[0][
+            'Nama_Pengirim'], // Mengambil nama pengirim dari data pengantaran pertama
+        'nama_kurir': dataPengantaran[0][
+            'nama_kurir'], // Mengambil nama kurir dari data pengantaran pertama
+        'handphone_kurir': dataPengantaran[0][
+            'handphone_kurir'], // Mengambil handphone kurir dari data pengantaran pertama
+        'email_kurir': dataPengantaran[0]
+            ['email'], // Mengambil email kurir dari data pengantaran pertama
+        'status_pengiriman':
+            status, // Mengirimkan status 'Gagal' atau 'Selesai'
+      };
+
+      await ApiService().sendDeliveryStatus(data);
+      _fetchDataPengantaran(); // Memuat ulang data setelah pengiriman status berhasil
+      _tampilkanSnackBar('Status berhasil diperbarui menjadi $status');
+    } catch (e) {
+      _tampilkanSnackBar('Gagal memperbarui status: $e');
+    }
+  }
+
   Future<void> _fetchCoordinatesAndBuildRoute() async {
     List<LatLng> fetchedCoordinates =
         await _ambilDataKurir.fetchCoordinates(idKurir);
@@ -97,14 +125,14 @@ class OSMScreenProvider extends ChangeNotifier {
     }
     _totalJarak /= 1000;
 
-    _waktuTempuh = calculateTravelTime(_totalJarak, 5.0);
+    _waktuTempuh = calculateTravelTime(_totalJarak, 10.0);
 
     if (_totalJarak != _lastTotalJarak || _waktuTempuh != _lastWaktuTempuh) {
       _lastTotalJarak = _totalJarak;
       _lastWaktuTempuh = _waktuTempuh;
+      _isLoading1 = false;
       safeNotifyListeners();
     }
-    _isLoading1 = false;
   }
 
   String calculateTravelTime(double distanceKm, double speedKmPerHour) {
